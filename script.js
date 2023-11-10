@@ -18,7 +18,6 @@ function salesReceipt(stringReceipt){
     const newArray = arrayDaStringReceipt.map(element => {
         return element.split("/");
     });
-    console.log(newArray);
 
     //Percorre o Array criado pelo map()
     for(let i=0; i< newArray.length-1; i++){
@@ -45,6 +44,26 @@ function salesReceipt(stringReceipt){
             }
         )
     }
+
+    // Cria variáveis para somar os valores do total
+    let somaTotal = 0;
+    let descontoTotal = 0;
+
+    // Itera sobre o objeto e pega os valores e cupons
+    receipt.listaDaVenda.forEach(item => {
+        somaTotal+=item.valor;
+        descontoTotal+=item.cupom;
+    });
+
+    // Cria um objeto com o total
+    const objetTotal = {
+        valorTotal: somaTotal,
+        valorTotalDesconto: descontoTotal,
+        quantidadeDeProdutos: arrayDaStringReceipt.length-1
+    };
+
+    // Adiciona ao objeto do recibo de vendas
+    receipt.total = objetTotal;
 
     console.log(receipt);
     return receipt;
